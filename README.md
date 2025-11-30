@@ -125,7 +125,7 @@ _Подготовка необходимых пакетов:_
 
  ![](PO_with_stats.png)
 
-### Дополнительные скрипты
+### Дополнительные скрипты (заливка и отображение значений)
 `plot.PO1 <- ggplot(data=tbl, 
        aes(x=Group, y=PO.activity, fill=Species)) + #добавляем заливку по виду (fill=Species)
   expand_limits(y=0) +
