@@ -107,8 +107,7 @@ _Подготовка необходимых пакетов:_
 
 `ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сохранение в файл`
 
-РИСУНОК
-
+ ![](PO_with_stats.png)
 
 ### Дополнительные скрипты
 `plot.PO1 <- ggplot(data=tbl, 
