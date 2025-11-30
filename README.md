@@ -122,6 +122,7 @@ _Подготовка необходимых пакетов:_
   theme_bw(base_size = 16) +
   theme(strip.text = element_text(face="italic"))`
 
+![](Supplementary.png)
 
 ### Построение графика из статьи (Jakob et al, 2021)
 `Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)
@@ -132,7 +133,7 @@ ggplot(Jakob,
            p.adjust.method = "holm", ref.group = 1)
 ggsave(filename="CS_activ.png", device=png, width=16, height=12, units="cm", dpi=300)`
 
-РИСУНОК
+![](Jakob.png)
 
 
 ## Анализ дифференциальной экспрессии в R
@@ -169,8 +170,8 @@ _Визуализация данных:_
  col = c("grey30", "grey30", "grey30", "red2"),
  xlab="", ylab = bquote(~-Log[10] ~ italic(p)),
  caption="", selectLab = "", legendPosition = 'none')`
- 
- РИСУНОК
+
+ ![](DEG.png)
 
 _Сортировка и запись данных (xlsx):_
 `DEGs <- res[abs(res$log2FoldChange) > 2 & res$padj < 0.05 & complete.cases(res$padj), ]`
