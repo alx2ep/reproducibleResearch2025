@@ -38,6 +38,7 @@
 
 ## Скачивание данных
 _Показываем, где находится исполняемый файл программы:_
+
 `export PATH=$PATH:/media/secondary/apps/sratoolkit.3.0.0-ubuntu64/bin/`
 
 _Скачиваем данные (Eulimnogammarus verrucosus):_
