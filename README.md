@@ -42,26 +42,33 @@ _Показываем, где находится исполняемый файл
 `export PATH=$PATH:/media/secondary/apps/sratoolkit.3.0.0-ubuntu64/bin/`
 
 _Скачиваем данные (Eulimnogammarus verrucosus):_
+
 `fasterq-dump --threads 2 -A --progress SRR8205839 ; fasterq-dump --threads 2 -A --progress SRR8205845 ; fasterq-dump --threads 2 -A --progress SRR8205840 ; fasterq-dump --threads 2 -A --progress SRR8205846 ; fasterq-dump --threads 2 -A --progress SRR8205838 ; fasterq-dump --threads 2 -A --progress SRR8206022 ; fasterq-dump --threads 2 -A --progress SRR8206023 ; fasterq-dump --threads 2 -A --progress SRR8205837`
 
 
 ## Выравнивание чтений на референс
 _Скачивание референса:_
+
 `wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE129nnn/GSE129069/suppl/GSE129069%5FEveBCdTP1%5Fani%2Efasta%2Egz`
 
 _Распаковка архива:_
+
 `gunzip GSE129069_EveBCdTP1_ani.fasta.gz`
 
 _Прописывание пути к программе:_
+
 `export PATH=$PATH:/media/secondary/apps/trinityrnaseq-v2.14.0/util/`
 
 _Подготовка референса:_
+
 `lign_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --est_method salmon --trinity_mode --prep_reference`
 
 _Скачивание таблицы образцов:_
+
 `wget https://raw.githubusercontent.com/drozdovapb/Reproducible_research/refs/heads/main/Data/Eve_samples.txt`
 
 _Выравнивание с помощью Salmon:_
+
 `align_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --seqType fq --samples_file Eve_samples.txt --est_method salmon --trinity_mode --output_dir . --thread_count 2 --SS_lib_type FR`
 
 
@@ -69,26 +76,33 @@ _Выравнивание с помощью Salmon:_
 ## Построение графиков в R:
 ### Загрузка файлов:
 _Установка рабочей директории:_
+
 `setwd("C:/Users/epifa/Учёба/Магистратура 1 курс/Воспроизводимые исследования в биологии")`
 
 _Загрузка библиотек:_
+
 `library(openxlsx)`
 
 _Загрузка файлов:_
+
 `tbl <- read.xlsx("Test_table2.xlsx", sheet = 2)`
 
 ### Проверка файлов:
 _Числа являются числами:_
+
 `str(tbl)`
 
 _Диапазон значений соответствует ожидаемому:_
+
 `hist(tbl$PO.activity)`
 `hist(tbl$Hemocyte.count)`
 
 _Факторы: одинаковое написание:_
+
 `unique(tbl$Species)`
 
 _Подготовка необходимых пакетов:_
+
 `if (!("ggplot2" %in% installed.packages())) install.packages("ggplot2")`
 `library(ggplot2)`
 
@@ -140,21 +154,25 @@ ggsave(filename="CS_activ.png", device=png, width=16, height=12, units="cm", dpi
 
 ## Анализ дифференциальной экспрессии в R
 _Скачивание файла с удаленного сервера_
+
 `export PATH=$PATH:/media/secondary/apps/trinityrnaseq-v2.14.0/util`
 `abundance_estimates_to_matrix.pl --est_method salmon --gene_trans_map none \--name_sample_by_basedir --out_prefix Eve --cross_sample_norm none \Eve*/quant.sf`
 
 ## Анализ в R
 _Установка пакетов в R:_
+
 `install.packages("BiocManager")`
 `BiocManager::install("EnhancedVolcano")`
 `BiocManager::install("DESeq2")`
 
 _Загрузка библиотек:_
+
 `library(DESeq2)`
 `library(EnhancedVolcano)`
 `library(openxlsx)`
 
 _Загружаем данные в R:_
+
 `count_table <- read.table("Eve.isoform.counts.matrix")`
 `count_table <- round(count_table)`
 `sample_table <- data.frame(conditions=c("control", "control", "control", "control",
@@ -165,6 +183,7 @@ _Загружаем данные в R:_
 `res <- results(dds)`
 
 _Визуализация данных:_
+
 `EnhancedVolcano(res, lab = rownames(res),
  x = 'log2FoldChange', y = 'pvalue',
  pCutoff=0.05, pCutoffCol = 'padj', FCcutoff = 1,
@@ -176,6 +195,7 @@ _Визуализация данных:_
  ![](DEG.png)
 
 _Сортировка и запись данных (xlsx):_
+
 `DEGs <- res[abs(res$log2FoldChange) > 2 & res$padj < 0.05 & complete.cases(res$padj), ]`
 `DEGs <- DEGs[order(DEGs$log2FoldChange), ]`
 `DEGs$Transcript <- row.names(DEGs)`
