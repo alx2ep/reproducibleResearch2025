@@ -208,6 +208,93 @@ ggsave(filename="LDH_activ.png", device=png, width=18, height=12, units="cm", dp
 
 ![](Enz_activ.png)
 
+#### Построение общего графика термальной нормы реакции активности ключевых метаболических ферментов с ДИ 95%
+```
+# задаем рабочую директорию (где находятся файлы для анализа)
+setwd("C:\\Users\\epifa\\Учёба\\Магистратура 1 курс\\Воспроизводимые исследования в биологии\\RR5_data")
+
+# подготавливаем пакеты для работы
+if (!("openxlsx" %in% installed.packages())) install.packages("openxlsx")
+library(openxlsx)
+if (!("ggplot2" %in% installed.packages())) install.packages("ggplot2")
+library(ggplot2)
+if (!("ggpubr" %in% installed.packages())) install.packages("ggpubr")
+library(ggpubr)
+if (!("tidyr" %in% installed.packages())) install.packages("tidyr")
+library(tidyr)
+
+Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2) # загружаем данные для анализа
+
+# Преобразуем данные из широкого формата в длинный
+Jakob_long <- pivot_longer(
+  Jakob,
+  cols = c(`LDH.activity.(U.mg.(FW)-1)`, `CS.activity.(U.mg.(FW)-1)`, 
+           `COX.activity.(U.mg.(FW)-1)`, `PK.activity.(U.mg.(FW)-1)`),# выбираем столбцы для преобразования
+  names_to = "Enzyme", # задаем имя нового столбца для названия ферментов
+  values_to = "Activity" # задаем имя нового столбца для активности ферментов
+)
+
+# Переименовываем ферменты для удобства (через преобразования текста в фактор)
+Jakob_long$Enzyme <- factor(Jakob_long$Enzyme, 
+                            levels = c("LDH.activity.(U.mg.(FW)-1)", "CS.activity.(U.mg.(FW)-1)",
+                                       "COX.activity.(U.mg.(FW)-1)", "PK.activity.(U.mg.(FW)-1)"), # старые названия
+                            labels = c("LDH", "CS", "COX", "PK") # новые названия в том же порядке, что и старые
+)
+
+# Создаем цветовую палитру для ферментов
+enzyme_colors <- c(
+  "LDH" = "#E41A1C",
+  "CS" = "#377EB8",
+  "COX" = "#4DAF4A",
+  "PK" = "#984EA3"
+)
+
+# Строим график
+plot_1 <- ggplot(Jakob_long, 
+            aes(x = `Incubation.temperature.(°C)`, # задаем ось x
+                y = Activity, # задаем ось y
+                color = Enzyme, # цвет соответствует ферменту
+                group = Enzyme)) + # группировка для построения линий
+  geom_point(alpha = 0.4, size = 1.5) + # задаем уровень прозрачности и размер точек
+  
+  # Создаем линии по средним значениям
+  stat_summary(
+    fun = mean, # вычисляем среднее
+    geom = "line", # выбираем геометрию: линию
+    linewidth=1.2, # толщина линии
+    aes(group = Enzyme) # группировка по ферменту
+  ) +
+  # Вычисляем дов. интервалы (95)
+  stat_summary(
+    fun.data = mean_cl_normal,# среднее + 95% ДИ (норм. распред)
+    geom = "ribbon", # выбираем геометрию: ленту
+    aes(fill = Enzyme), # заливка по ферменту
+    alpha = 0.2, #прозрачность
+    color = NA #без границ
+  ) +
+  # Настройка цветов
+  scale_color_manual(values = enzyme_colors) + #применяем ранее созданную палитру enzyme_colors к линиям
+  scale_fill_manual(values = enzyme_colors) + #применяем ранее созданную палитру enzyme_colors к ДИ
+  # Названия осей и легенды
+  labs(
+    title = "Термальные нормы реакции ключевых метаболических ферментов у E. verrucosus", # название графика
+    x = "Температура инкубации (°C)", # название оси x
+    y = "Активность фермента (U·mg⁻¹ FW)", #название оси y
+    color = "Фермент",
+    fill = "Фермент"
+  ) +
+
+  theme_minimal(base_size = 12) + # базовый размер шрифта 12
+  theme(
+    legend.position = "bottom", # положение легенды
+    plot.title = element_text(face = "bold", hjust = 0.5) # жирный заголовок по центру
+  )
+
+# Сохранение графика
+ggsave(filename = "Enzymes_activ.png", plot = plot_1, width = 25, height = 14, units = "cm", dpi = 300)
+```
+![](Enzymes_activ.png)
+Линии показывают средние значения, затененные области - 95% доверительные интервалы
 
 ### Анализ дифференциальной экспрессии в R
 _Скачивание файла с удаленного сервера_
