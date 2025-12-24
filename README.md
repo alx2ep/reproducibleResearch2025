@@ -69,7 +69,7 @@ _Eulimnogammarus verrucosus_ (эулимногаммарус бородавча�
 `wget` - скачивает файлы из интернета прямо на сервер. Пример, `wget https://example.com/file.zip`.
 
 
-## Скачивание данных
+### Скачивание данных
 _Показываем, где находится исполняемый файл программы sratoolkit:_
 
 `export PATH=$PATH:/media/secondary/apps/sratoolkit.3.0.0-ubuntu64/bin/`
@@ -79,7 +79,7 @@ _Скачиваем данные (Eulimnogammarus verrucosus):_
 `fasterq-dump --threads 2 -A --progress SRR8205839 ; fasterq-dump --threads 2 -A --progress SRR8205845 ; fasterq-dump --threads 2 -A --progress SRR8205840 ; fasterq-dump --threads 2 -A --progress SRR8205846 ; fasterq-dump --threads 2 -A --progress SRR8205838 ; fasterq-dump --threads 2 -A --progress SRR8206022 ; fasterq-dump --threads 2 -A --progress SRR8206023 ; fasterq-dump --threads 2 -A --progress SRR8205837`
 
 
-## Выравнивание чтений на референс
+### Выравнивание чтений на референс
 _Скачивание референса:_
 
 `wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE129nnn/GSE129069/suppl/GSE129069%5FEveBCdTP1%5Fani%2Efasta%2Egz`
@@ -104,8 +104,6 @@ _Выравнивание с помощью Salmon:_
 
 `align_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --seqType fq --samples_file Eve_samples.txt --est_method salmon --trinity_mode --output_dir . --thread_count 2 --SS_lib_type FR`
 
-
-## Работа на удаленных серверах bash
 ### Построение графиков в R:
 #### Загрузка файлов:
 _Установка рабочей директории (место на диске, где находятся файлы для анализа):_
