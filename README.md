@@ -23,6 +23,13 @@ _Eulimnogammarus verrucosus_ (эулимногаммарус бородавча�
 `ggpubr`
 
 `openxlsx`
+
+`BiocManager`
+
+`EnhancedVolcano`
+
+`DESeq2`
+
 ## Работа на удаленных серверах bash
 ### Основные команды bash
 
