@@ -110,7 +110,7 @@ _Подготовка необходимых пакетов:_
 `library(ggpubr)`
 
 ### Построение графиков (на примере Po activity):
- `plot <- ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
+ `plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
   expand_limits(y=0) + #y=0 включаем
   geom_boxplot(show.legend = FALSE) + #боксплоты (без легенды)
   facet_wrap(~Species) + #панели по видам
