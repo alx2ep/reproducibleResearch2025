@@ -12,11 +12,13 @@ _Eulimnogammarus verrucosus_ (эулимногаммарус бородавча�
 Внешний вид объекта исследования. Источник фотографии: [https://festivalnauki.ru/media/articles/interesno-o-nauke/neizvedannyy-baykal/]
 
 # Методы
-`NCBI SRA Toolkit (v3.0.0)`
+`PuTTY v0.81`
 
-`Trinity RNA-Seq (v2.14.0)`
+`NCBI SRA Toolkit v3.0.0`
 
-`R (v4.3.2)`
+`Trinity RNA-Seq v2.14.0`
+
+`R v4.3.2`
 
 `ggplot2`
 
