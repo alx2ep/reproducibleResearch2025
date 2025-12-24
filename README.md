@@ -140,17 +140,34 @@ _Подготовка необходимых пакетов:_
 
 ![](Supplementary.png)
 
-### Построение графика термальной нормы реакции активности цитратсинтазы (CS) у _E. verrucosus_ (Jakob et al, 2021)
-`Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)
-ggplot(Jakob, 
-       aes(x=factor(`Incubation.temperature.(°C)`), y=`CS.activity.(U.mg.(FW)-1)`)) +
+### Построение графиков термальной нормы реакции активности ключевых метаболических ферментов: лактатдегидрогеназы (LDH), цитратсинтазы (CS) и цитохром-c-оксидаза (COX) у _E. verrucosus_ (Jakob et al, 2021)
+
+`Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)`
+`temp_colors_orange <- c("6" = "#ffebcc",
+                        "9.2" = "#ffcc99",
+                        "12.4" = "#ff9966",
+                        "15.6" = "#ff6633",
+                        "18.8" = "#cc3300",
+                        "23.6" = "#991f00") # Определяем цвета для каждой температуры (6 значений) `
+`ggplot(Jakob, 
+       aes(x = factor(`Incubation.temperature.(°C)`), 
+           y = `LDH.activity.(U.mg.(FW)-1)`,
+           fill = factor(`Incubation.temperature.(°C)`))) +  # Добавляем fill!
   geom_boxplot() +
-  geom_pwc(method="wilcox_test", label = "{p.adj}, {p.adj.signif}", 
-           p.adjust.method = "holm", ref.group = 1) +
-ggsave(filename="CS_activ.png", device=png, width=16, height=12, units="cm", dpi=300)`
+  scale_fill_manual(values = temp_colors_orange) +  # Применяем цвета
+  geom_pwc(method = "wilcox_test", 
+           label = "{p.adj}, {p.adj.signif}", 
+           p.adjust.method = "holm", 
+           ref.group = 1) +
+  labs(title = "Активность LDH при разных температурах инкубации у E. verrucosus",
+       x = "Температура инкубации (°C)", 
+       y = "Активность LDH (U·mg⁻¹ FW)",
+       fill = "Температура") +  # Название легенды
+  theme_minimal() +
+  theme(legend.position = "right")  # Легенда справа`
+`ggsave(filename="LDH_activ.png", device=png, width=18, height=12, units="cm", dpi=300) # сохраняем полученный результат`
 
-![](Jakob.png)
-
+### Далее по аналогии  меняем в строчке `y = LDH.activity.(U.mg.(FW)-1)` значение y на `CS.activity.(U.mg.(FW)-1)` и `COX.activity.(U.mg.(FW)-1)` соответственно.
 
 ## Анализ дифференциальной экспрессии в R
 _Скачивание файла с удаленного сервера_
