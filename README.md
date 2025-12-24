@@ -198,48 +198,49 @@ ggsave(filename="LDH_activ.png", device=png, width=18, height=12, units="cm", dp
 _Скачивание файла с удаленного сервера_
 
 `export PATH=$PATH:/media/secondary/apps/trinityrnaseq-v2.14.0/util`
+
 `abundance_estimates_to_matrix.pl --est_method salmon --gene_trans_map none \--name_sample_by_basedir --out_prefix Eve --cross_sample_norm none \Eve*/quant.sf`
 
 #### Анализ в R
 _Установка пакетов в R:_
-
-`install.packages("BiocManager")`
-`BiocManager::install("EnhancedVolcano")`
-`BiocManager::install("DESeq2")`
-
+```
+install.packages("BiocManager")
+BiocManager::install("EnhancedVolcano")
+BiocManager::install("DESeq2")
+```
 _Загрузка библиотек:_
-
-`library(DESeq2)`
-`library(EnhancedVolcano)`
-`library(openxlsx)`
-
+```
+library(DESeq2)
+library(EnhancedVolcano)
+library(openxlsx)
+```
 _Загружаем данные в R:_
-
-`count_table <- read.table("Eve.isoform.counts.matrix")`
-`count_table <- round(count_table)`
-`sample_table <- data.frame(conditions=c("control", "control", "control", "control",
-                                    "heat_shock", "heat_shock", "heat_shock"))`
-`ddsFullCountTable <- DESeqDataSetFromMatrix(
-  countData = count_table, colData = sample_table, design = ~ conditions)`
-`dds <- DESeq(ddsFullCountTable)`
-`res <- results(dds)`
-
+```
+count_table <- read.table("Eve.isoform.counts.matrix")
+count_table <- round(count_table)
+sample_table <- data.frame(conditions=c("control", "control", "control", "control",
+                                    "heat_shock", "heat_shock", "heat_shock"))
+ddsFullCountTable <- DESeqDataSetFromMatrix(
+  countData = count_table, colData = sample_table, design = ~ conditions)
+dds <- DESeq(ddsFullCountTable)
+res <- results(dds)
+```
 _Визуализация данных:_
-
-`EnhancedVolcano(res, lab = rownames(res),
+```
+EnhancedVolcano(res, lab = rownames(res),
  x = 'log2FoldChange', y = 'pvalue',
  pCutoff=0.05, pCutoffCol = 'padj', FCcutoff = 1,
  title="Large Title", subtitle="Subtitle",
  col = c("grey30", "grey30", "grey30", "red2"),
  xlab="", ylab = bquote(~-Log[10] ~ italic(p)),
- caption="", selectLab = "", legendPosition = 'none')`
-
+ caption="", selectLab = "", legendPosition = 'none')
+```
  ![](DEG.png)
 
 _Сортировка и запись данных (xlsx):_
-
-`DEGs <- res[abs(res$log2FoldChange) > 2 & res$padj < 0.05 & complete.cases(res$padj), ]`
-`DEGs <- DEGs[order(DEGs$log2FoldChange), ]`
-`DEGs$Transcript <- row.names(DEGs)`
-`write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")`
-
+```
+DEGs <- res[abs(res$log2FoldChange) > 2 & res$padj < 0.05 & complete.cases(res$padj), ]
+DEGs <- DEGs[order(DEGs$log2FoldChange), ]`
+DEGs$Transcript <- row.names(DEGs)
+write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
+```
