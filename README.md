@@ -104,9 +104,11 @@ _Факторы: одинаковое написание:_
 _Подготовка необходимых пакетов:_
 
 `if (!("ggplot2" %in% installed.packages())) install.packages("ggplot2")`
+
 `library(ggplot2)`
 
 `if (!("ggpubr" %in% installed.packages())) install.packages("ggpubr")`
+
 `library(ggpubr)`
 
 ### Построение графиков (на примере Po activity):
