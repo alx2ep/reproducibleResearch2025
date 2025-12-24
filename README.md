@@ -296,53 +296,73 @@ ggsave(filename = "Enzymes_activ.png", plot = plot_1, width = 25, height = 14, u
 ![](Enzymes_activ.png)
 Линии показывают средние значения, затененные области - 95% доверительные интервалы
 
-### Анализ дифференциальной экспрессии в R
-_Скачивание файла с удаленного сервера_
+### Анализ дифференциальной экспрессии генов (ДЭГ)
+#### Скачивание данных с удаленного сервера
 
 `export PATH=$PATH:/media/secondary/apps/trinityrnaseq-v2.14.0/util`
 
 `abundance_estimates_to_matrix.pl --est_method salmon --gene_trans_map none \--name_sample_by_basedir --out_prefix Eve --cross_sample_norm none \Eve*/quant.sf`
 
 #### Анализ в R
-_Установка пакетов в R:_
 ```
+setwd("C:\\Users\\epifa\\Учёба\\Магистратура 1 курс\\Воспроизводимые исследования в биологии\\RR5_data")
+
+# Установка и загрузка необходимых пакетов
 install.packages("BiocManager")
 BiocManager::install("EnhancedVolcano")
 BiocManager::install("DESeq2")
-```
-_Загрузка библиотек:_
-```
+
 library(DESeq2)
 library(EnhancedVolcano)
 library(openxlsx)
-```
-_Загружаем данные в R:_
-```
+
+# Загрузка данных
 count_table <- read.table("Eve.isoform.counts.matrix")
 count_table <- round(count_table)
 sample_table <- data.frame(conditions=c("control", "control", "control", "control",
-                                    "heat_shock", "heat_shock", "heat_shock"))
+                                        "heat_shock", "heat_shock", "heat_shock"))
+
+# Анализ ДЭ
 ddsFullCountTable <- DESeqDataSetFromMatrix(
   countData = count_table, colData = sample_table, design = ~ conditions)
 dds <- DESeq(ddsFullCountTable)
 res <- results(dds)
-```
-_Визуализация данных:_
-```
-EnhancedVolcano(res, lab = rownames(res),
- x = 'log2FoldChange', y = 'pvalue',
- pCutoff=0.05, pCutoffCol = 'padj', FCcutoff = 1,
- title="Large Title", subtitle="Subtitle",
- col = c("grey30", "grey30", "grey30", "red2"),
- xlab="", ylab = bquote(~-Log[10] ~ italic(p)),
- caption="", selectLab = "", legendPosition = 'none')
-```
- ![](DEG.png)
 
-_Сортировка и запись данных (xlsx):_
-```
+top_n <- 20  # Количество генов для отображения
+top_genes <- rownames(res)[order(res$padj)][1:top_n] # сортировка и выбор топ-20 ДЭГ
+
+
+# Визуализация данных
+EnhancedVolcano(res,
+                lab = rownames(res),
+                x = 'log2FoldChange', #
+                y = 'pvalue',
+                pCutoff = 0.05, # p-value
+                pCutoffCol = 'padj', # скорректированное p-value
+                FCcutoff = 1, # порог изменения экспрессии
+                title = paste("Топ-20 ДЭГ"),
+                subtitle = "E. verrucosus: heat shock vs control",
+                col = c("grey30", "green", "blue", "red2"),
+                labSize = 5, # размер текста
+                labCol = 'black', # цвет текста
+                boxedLabels = TRUE, # рамка вокруг подписей
+                drawConnectors = TRUE, # соед. линии
+                widthConnectors = 0.5, # толщина линий
+                colConnectors = 'grey50', # цвет линий
+                max.overlaps = 100,   
+                selectLab = top_genes, # подписывать только топ-20
+                xlab = bquote(~Log[2]~" Fold Change"),# подпись оси x
+                ylab = bquote(~-Log[10]~italic(p)), # подпись оси y
+                legendPosition = 'right') # положение легенды
+
+# Сохранение графика
+ggsave("Volcano_plot.png", 
+       width = 50, height = 30, units = "cm", dpi = 300)
+
+# Сортировка и запись данных (xlsx)
 DEGs <- res[abs(res$log2FoldChange) > 2 & res$padj < 0.05 & complete.cases(res$padj), ]
 DEGs <- DEGs[order(DEGs$log2FoldChange), ]`
 DEGs$Transcript <- row.names(DEGs)
 write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
 ```
+ ![](Volcano_plot_RGB.png)
