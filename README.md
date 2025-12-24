@@ -132,7 +132,8 @@ _Подготовка необходимых пакетов:_
 `library(ggpubr)`
 
 #### Построение графиков (на примере Po activity):
- ```plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
+ ```
+ plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
   expand_limits(y=0) + #y=0 включаем
   geom_boxplot(show.legend = FALSE) + #боксплоты (без легенды)
   facet_wrap(~Species) + #панели по видам
@@ -140,8 +141,8 @@ _Подготовка необходимых пакетов:_
   theme_bw(base_size = 16) + #увеличим размер шрифта + белый фон
   theme(strip.text = element_text(face="italic")) + #курсив
   geom_pwc(method = "wilcox_test", label="p.adj") #добавление статистических тестов
-`plot #вывод графика`
-`ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сохранение в файл`
+plot #вывод графика
+ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сохранение в файл
 ```
  ![](PO_with_stats.png)
 
