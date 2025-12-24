@@ -140,13 +140,13 @@ _Подготовка необходимых пакетов:_
 
 ![](Supplementary.png)
 
-### Построение графика из статьи (Jakob et al, 2021)
+### Построение графика термальной нормы реакции активности цитратсинтазы (CS) у _E. verrucosus_ (Jakob et al, 2021)
 `Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)
 ggplot(Jakob, 
        aes(x=factor(`Incubation.temperature.(°C)`), y=`CS.activity.(U.mg.(FW)-1)`)) +
-  geom_boxplot()
+  geom_boxplot() +
   geom_pwc(method="wilcox_test", label = "{p.adj}, {p.adj.signif}", 
-           p.adjust.method = "holm", ref.group = 1)
+           p.adjust.method = "holm", ref.group = 1) +
 ggsave(filename="CS_activ.png", device=png, width=16, height=12, units="cm", dpi=300)`
 
 ![](Jakob.png)
