@@ -20,6 +20,8 @@ _Eulimnogammarus verrucosus_ (эулимногаммарус бородавча�
 
 `R v4.3.2`
 
+`tidyr`
+
 `ggplot2`
 
 `ggpubr`
