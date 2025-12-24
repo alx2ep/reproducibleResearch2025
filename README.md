@@ -367,3 +367,14 @@ DEGs$Transcript <- row.names(DEGs)
 write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
 ```
  ![](Volcano_plot_RGB.png)
+
+ #### Аннотация генов
+ 
+ Чтобы получить адекватные названия генов, а не технические идентификаторы Trinity, необходимо аннотировать гены.
+ Предварительно нужно узнать какая последовательность скрывается за Trinity ID.
+ Последовательно можно узнать на удаленном сервере, где хранится fasta-файл (GSE129069_EveBCdTP1_ani.fasta)
+ 
+ `grep TRINITY_DN366819_c0_g1_i7 GSE129069_EveBCdTP1_ani.fasta -A 1`
+
+ Далее скопированную с удаленного сервера последовательность нужно загрузить в BLASTn [https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome].
+
