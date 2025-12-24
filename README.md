@@ -101,6 +101,7 @@ _Установка рабочей директории (место на дис�
 _Загрузка библиотек:_
 
 `install.packages("openxlsx")`
+
 `library(openxlsx)`
 
 _Загрузка файлов:_
@@ -144,7 +145,8 @@ ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сох
  ![](PO_with_stats.png)
 
 #### Дополнительные скрипты (заливка и отображение значений)
-`plot.PO1 <- ggplot(data=tbl, 
+```
+plot.PO1 <- ggplot(data=tbl, 
        aes(x=Group, y=PO.activity, fill=Species)) + #добавляем заливку по виду (fill=Species)
   expand_limits(y=0) +
   geom_boxplot(show.legend = TRUE) +
@@ -154,20 +156,21 @@ ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сох
   ylab("PO activity, a.u.") + 
   xlab("") +
   theme_bw(base_size = 16) +
-  theme(strip.text = element_text(face="italic"))`
+  theme(strip.text = element_text(face="italic"))
+```
 
 ![](Supplementary.png)
 
 #### Построение графиков термальной нормы реакции активности ключевых метаболических ферментов: лактатдегидрогеназы (LDH), цитратсинтазы (CS), цитохром-c-оксидаза (COX) и пируваткиназы (PK) у _E. verrucosus_ (Jakob et al, 2021)
-
-`Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)`
-`temp_colors_orange <- c("6" = "#ffebcc",
+```
+Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)
+temp_colors_orange <- c("6" = "#ffebcc",
                         "9.2" = "#ffcc99",
                         "12.4" = "#ff9966",
                         "15.6" = "#ff6633",
                         "18.8" = "#cc3300",
-                        "23.6" = "#991f00") # Определяем цвета для каждой температуры (6 значений) `
-`ggplot(Jakob, 
+                        "23.6" = "#991f00") # Определяем цвета для каждой температуры (6 значений)
+ggplot(Jakob, 
        aes(x = factor(`Incubation.temperature.(°C)`), 
            y = `LDH.activity.(U.mg.(FW)-1)`,
            fill = factor(`Incubation.temperature.(°C)`))) +  # Добавляем fill!
@@ -183,7 +186,8 @@ ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сох
        fill = "Температура") +  # Название легенды
   theme_minimal() +
   theme(legend.position = "right")  # Легенда справа`
-`ggsave(filename="LDH_activ.png", device=png, width=18, height=12, units="cm", dpi=300) # сохраняем полученный результат`
+ggsave(filename="LDH_activ.png", device=png, width=18, height=12, units="cm", dpi=300) # сохраняем полученный результат
+```
 
 #### Далее по аналогии  меняем в строчке `y = LDH.activity.(U.mg.(FW)-1)` значение y на `CS.activity.(U.mg.(FW)-1)`, `COX.activity.(U.mg.(FW)-1)` и `PK.activity.(U.mg.(FW)-1)` соответственно.
 
