@@ -139,12 +139,10 @@ _Подготовка необходимых пакетов:_
   ylab("PO activity, a.u.") + xlab("") + #название оси Y
   theme_bw(base_size = 16) + #увеличим размер шрифта + белый фон
   theme(strip.text = element_text(face="italic")) + #курсив
-  geom_pwc(method = "wilcox_test", label="p.adj") #добавление статистических тестов```
-
+  geom_pwc(method = "wilcox_test", label="p.adj") #добавление статистических тестов
 `plot #вывод графика`
-
 `ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сохранение в файл`
-
+```
  ![](PO_with_stats.png)
 
 #### Дополнительные скрипты (заливка и отображение значений)
