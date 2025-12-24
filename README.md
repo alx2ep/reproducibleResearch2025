@@ -132,14 +132,14 @@ _Подготовка необходимых пакетов:_
 `library(ggpubr)`
 
 #### Построение графиков (на примере Po activity):
- `plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
+ ```plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
   expand_limits(y=0) + #y=0 включаем
   geom_boxplot(show.legend = FALSE) + #боксплоты (без легенды)
   facet_wrap(~Species) + #панели по видам
   ylab("PO activity, a.u.") + xlab("") + #название оси Y
   theme_bw(base_size = 16) + #увеличим размер шрифта + белый фон
   theme(strip.text = element_text(face="italic")) + #курсив
-  geom_pwc(method = "wilcox_test", label="p.adj") #добавление статистических тестов`
+  geom_pwc(method = "wilcox_test", label="p.adj") #добавление статистических тестов```
 
 `plot #вывод графика`
 
