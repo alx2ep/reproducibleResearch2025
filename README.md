@@ -108,7 +108,7 @@ _Выравнивание с помощью Salmon:_
 `align_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --seqType fq --samples_file Eve_samples.txt --est_method salmon --trinity_mode --output_dir . --thread_count 2 --SS_lib_type FR`
 
 ### Построение графиков в R:
-#### На примере активности фенолоксидазы (PO)
+#### На примере активности фенолоксидазы (PO) у _E. coli_ и _E. verrucosus_
 ```
 # Задаем рабочую директорию (где находятся файлы для анализа)
 setwd("C:/Users/epifa/Учёба/Магистратура 1 курс/Воспроизводимые исследования в биологии/RR5_data")
