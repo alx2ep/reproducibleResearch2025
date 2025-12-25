@@ -108,46 +108,29 @@ _Выравнивание с помощью Salmon:_
 `align_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --seqType fq --samples_file Eve_samples.txt --est_method salmon --trinity_mode --output_dir . --thread_count 2 --SS_lib_type FR`
 
 ### Построение графиков в R:
-#### Загрузка файлов:
-_Установка рабочей директории (место на диске, где находятся файлы для анализа):_
-
-`setwd("C:/Users/epifa/Учёба/Магистратура 1 курс/Воспроизводимые исследования в биологии")`
-
-_Загрузка библиотек:_
-
-`install.packages("openxlsx")`
-
-`library(openxlsx)`
-
-_Загрузка файлов:_
-
-`tbl <- read.xlsx("Test_table_2.xlsx", sheet = 2)`
-
-#### Проверка файлов:
-_Числа являются числами:_
-
-`str(tbl)`
-
-_Диапазон значений соответствует ожидаемому:_
-
-`hist(tbl$PO.activity)`
-
-`hist(tbl$Hemocyte.count)`
-
-_Факторы: одинаковое написание:_
-
-`unique(tbl$Species)`
-
-_Подготовка необходимых пакетов:_
+#### На примере активности фенолоксидазы (PO)
 ```
+# Задаем рабочую директорию (где находятся файлы для анализа)
+setwd("C:/Users/epifa/Учёба/Магистратура 1 курс/Воспроизводимые исследования в биологии/RR5_data")
+
+# Подготовка необходимых пакетов
+if (!("openxlsx" %in% installed.packages())) install.packages("openxlsx")
+library(openxlsx)
 if (!("ggplot2" %in% installed.packages())) install.packages("ggplot2")
 library(ggplot2)
 if (!("ggpubr" %in% installed.packages())) install.packages("ggpubr")`
 library(ggpubr)
-```
-#### Построение графиков (на примере Po activity):
- ```
- plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
+
+tbl <- read.xlsx("Test_table_2.xlsx", sheet = 2) # загрузка данных
+
+# Проверка файлов
+str(tbl)
+hist(tbl$PO.activity)
+hist(tbl$Hemocyte.count)
+unique(tbl$Species)
+
+# Построение графиков
+plot <-ggplot(data=tbl, aes(x=Group, y=PO.activity)) +
   expand_limits(y=0) + #y=0 включаем
   geom_boxplot(show.legend = FALSE) + #боксплоты (без легенды)
   facet_wrap(~Species) + #панели по видам
@@ -158,6 +141,7 @@ library(ggpubr)
 plot #вывод графика
 ggsave("PO_with_stats.png", device=png, width=20, height=12, units="cm") #сохранение в файл
 ```
+
  ![](PO_with_stats.png)
 
 #### Дополнительные скрипты (заливка и отображение значений)
