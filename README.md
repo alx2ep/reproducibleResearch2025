@@ -163,6 +163,15 @@ plot.PO1 <- ggplot(data=tbl,
 
 #### Построение графиков термальной нормы реакции активности ключевых метаболических ферментов: лактатдегидрогеназы (LDH), цитратсинтазы (CS), цитохром-c-оксидаза (COX) и пируваткиназы (PK) у _E. verrucosus_ (Jakob et al, 2021)
 ```
+setwd("C:/Users/epifa/Учёба/Магистратура 1 курс/Воспроизводимые исследования в биологии/RR5_data")
+
+if (!("openxlsx" %in% installed.packages())) install.packages("openxlsx")
+library(openxlsx)
+if (!("ggplot2" %in% installed.packages())) install.packages("ggplot2")
+library(ggplot2)
+if (!("ggpubr" %in% installed.packages())) install.packages("ggpubr")`
+library(ggpubr)
+
 Jakob <- read.xlsx("Jakob-etal_2021.xlsx", startRow = 2)
 temp_colors_orange <- c("6" = "#ffebcc",
                         "9.2" = "#ffcc99",
