@@ -109,7 +109,7 @@ _Выравнивание с помощью Salmon:_
 
 `align_and_estimate_abundance.pl --transcripts GSE129069_EveBCdTP1_ani.fasta --seqType fq --samples_file Eve_samples.txt --est_method salmon --trinity_mode --output_dir . --thread_count 2 --SS_lib_type FR`
 
-### Построение графиков в R:
+## Построение графиков в R:
 #### На примере активности фенолоксидазы (PO) у _E. coli_ и _E. verrucosus_
 ```
 # Задаем рабочую директорию (где находятся файлы для анализа)
@@ -297,7 +297,7 @@ ggsave(filename = "Enzymes_activ.png", plot = plot_1, width = 25, height = 14, u
 
 
 
-### Анализ дифференциальной экспрессии генов (ДЭГ)
+## Анализ дифференциальной экспрессии генов (ДЭГ)
 #### Скачивание данных с удаленного сервера
 
 `export PATH=$PATH:/media/secondary/apps/trinityrnaseq-v2.14.0/util`
