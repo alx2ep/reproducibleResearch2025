@@ -385,5 +385,6 @@ write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
 ## Повышенная экспрессия таких генов, как UNC-45B (ко-шаперон myosin II), SMYD4 (эпигенетическая регуляция) и CHS (биосинтез хитина) свидетельствует об активном стресс-ответе.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+Список использованной литературы:
+Jakob, L., Vereshchagina, K.P., Tillmann, A. et al. Thermal reaction norms of key metabolic enzymes reflect divergent physiological and behavioral adaptations of closely related amphipod species. Sci Rep 11, 4562 (2021). https://doi.org/10.1038/s41598-021-83748-2
 
