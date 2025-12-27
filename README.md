@@ -367,7 +367,6 @@ DEGs <- DEGs[order(DEGs$log2FoldChange), ]`
 DEGs$Transcript <- row.names(DEGs)
 write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
 ```
- ![](Volcano_plot_RGB.png)
 
  #### Аннотация генов
  
@@ -378,4 +377,11 @@ write.xlsx(x = DEGs, file = "DEGs_amphipods.xlsx")
  `grep TRINITY_DN366819_c0_g1_i7 GSE129069_EveBCdTP1_ani.fasta -A 1`
 
  Далее скопированную с удаленного сервера последовательность необходимо аннотироваеть в BLASTn [https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome].
+
+ ![](Volcano_plot_RGB.png)
+
+## Вывод по графику:
+## Высокий уровень экспрессии генов, кодирующих белки теплового шока (HSP70, HSP90, HSP60, HSP110) и их ко-шапероны (STIP1, AHSA1, DNAJB4), является индикатором клеточного стресса и говорит о том, что экспериментальное повышение температуры привело к значительной денатурации и нарушению конформации внутриклеточных белков. 
+## Повышенная экспрессия таких генов, как UNC-45B (ко-шаперон myosin II), SMYD4 (эпигенетическая регуляция) и CHS (биосинтез хитина) свидетельствует об активном стресс-ответе.
+
 
