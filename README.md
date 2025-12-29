@@ -246,7 +246,7 @@ enzyme_colors <- c(
 )
 
 # Строим график
-plot_1 <- ggplot(Jakob_long, 
+plot_1 <-ggplot(Jakob_long, 
             aes(x = `Incubation.temperature.(°C)`, # задаем ось x
                 y = Activity, # задаем ось y
                 color = Enzyme, # цвет соответствует ферменту
