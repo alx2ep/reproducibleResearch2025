@@ -22,19 +22,19 @@ _Eulimnogammarus verrucosus_ (эулимногаммарус бородавча�
 
 `R v4.3.2`
 
-`tidyr`
+`tidyr v1.3.1`
 
-`ggplot2`
+`ggplot2 v4.0.1`
 
-`ggpubr`
+`ggpubr v0.6.2`
 
-`openxlsx`
+`openxlsx v4.2.8`
 
-`BiocManager`
+`BiocManager v1.30.27`
 
-`EnhancedVolcano`
+`EnhancedVolcano v1.20.0`
 
-`DESeq2`
+`DESeq2 v1.42.1`
 
 `NCBI Blastn`
 ## Работа на удаленных серверах bash
